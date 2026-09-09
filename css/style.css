@@ -83,10 +83,10 @@
 
   --container: 1240px;
   --gap: clamp(1rem, 2vw, 2rem);
-  --radius-sm: 14px;
-  --radius: 20px;
-  --radius-lg: 28px;
-  --radius-xl: 36px;
+  --radius-sm: 10px;
+  --radius: 10px;
+  --radius-lg: 10px;
+  --radius-xl: 10px;
 
   --ease: cubic-bezier(.22,.9,.3,1);
   --shadow-sm: 0 8px 24px -12px rgba(27,18,14,.14);
@@ -389,19 +389,6 @@ h2.section-title{
   color: rgba(255,255,255,.85);
 }
 .hero-cta{ display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: clamp(2rem, 3vw, 2.6rem); }
-.hero-msg-choice{ display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; }
-.hero-msg-label{ font-size: .85rem; color: rgba(255,255,255,.62); margin-right: .1rem; }
-.btn-msg{
-  display: inline-flex; align-items: center; gap: .45rem;
-  font-family: var(--font-display); font-weight: 600; font-size: .88rem;
-  color: var(--white); border: 1px solid rgba(255,255,255,.32);
-  background: rgba(255,255,255,.06); backdrop-filter: blur(6px);
-  padding: .6rem 1rem; border-radius: 999px;
-  transition: background .25s, border-color .25s, transform .25s var(--ease);
-}
-.btn-msg svg{ width: 16px; height: 16px; flex: none; }
-.btn-msg:hover{ background: var(--white); color: var(--espresso); border-color: var(--white); transform: translateY(-2px); }
-@media (max-width: 480px){ .hero-msg-label{ width: 100%; margin-bottom: -.2rem; } }
 
 /* ==========================================================================
    Marquee stat strip
@@ -495,7 +482,7 @@ h2.section-title{
   aspect-ratio: 4/5;
   position: relative;
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
   transition: box-shadow .5s var(--ease), transform .6s var(--ease);
   background-color: #4a322b;
@@ -532,7 +519,7 @@ h2.section-title{
   margin-top: 1rem;
   background: var(--paper-2);
   border: 0;
-  border-radius: 10px;
+  border-radius: var(--radius);
   display: grid;
   grid-template-columns: minmax(0,280px) minmax(0,1fr);
   overflow: hidden;
@@ -1013,6 +1000,49 @@ h2.section-title{
   transition: background .2s, border-color .2s;
 }
 .callback-alt-links a:hover{ background: var(--paper); border-color: var(--walnut); }
+
+/* ==========================================================================
+   Contact-choice popup (hero "Обсудим проект?")
+   ========================================================================== */
+.contact-modal-overlay{
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem;
+  background: rgba(20,13,10,0); backdrop-filter: blur(0px);
+  transition: background .25s var(--ease), backdrop-filter .25s var(--ease);
+}
+.contact-modal-overlay[hidden]{ display: none; }
+.contact-modal-overlay.is-open{ background: rgba(20,13,10,.5); backdrop-filter: blur(4px); }
+.contact-modal{
+  width: min(24rem, 100%);
+  background: var(--white); border-radius: var(--radius-lg);
+  padding: clamp(1.6rem, 3vw, 2.1rem);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  transform: translateY(10px) scale(.98); opacity: 0;
+  transition: transform .25s var(--ease), opacity .25s var(--ease);
+}
+.contact-modal-overlay.is-open .contact-modal{ transform: translateY(0) scale(1); opacity: 1; }
+.contact-modal h3{ font-size: 1.2rem; font-weight: 650; margin-bottom: .35rem; padding-right: 1.6rem; }
+.contact-modal p{ font-size: .88rem; color: rgba(29,29,31,.55); margin-bottom: 1.4rem; }
+.contact-modal-options{ display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+.contact-option{
+  display: flex; flex-direction: column; align-items: center; gap: .5rem;
+  padding: 1.1rem .8rem; border-radius: var(--radius);
+  background: var(--paper-2); border: 1px solid transparent;
+  font-family: var(--font-display); font-weight: 600; font-size: .88rem; color: var(--ink);
+  transition: background .2s, border-color .2s, transform .2s var(--ease);
+}
+.contact-option svg{ width: 26px; height: 26px; color: var(--walnut); }
+.contact-option:hover{ background: var(--white); border-color: var(--walnut); transform: translateY(-2px); }
+.contact-modal-form-link{
+  display: flex; align-items: center; justify-content: center; gap: .5rem;
+  margin-top: 1.3rem; padding-top: 1.2rem; border-top: 1px solid var(--line);
+  font-family: var(--font-display); font-weight: 600; font-size: .88rem; color: var(--walnut);
+  text-align: center;
+}
+.contact-modal-form-link svg{ width: 16px; height: 16px; }
+.contact-modal-form-link:hover{ color: var(--walnut-dark); }
 
 @media (prefers-reduced-motion: reduce){
   .callback-panel{ animation: none; }

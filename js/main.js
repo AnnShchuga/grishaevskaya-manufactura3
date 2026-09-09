@@ -1,6 +1,12 @@
 (() => {
   'use strict';
 
+  /* ---------- MAX contact link: placeholder until the real profile link is known ---------- */
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('[data-max-pending="true"]');
+    if (link) e.preventDefault();
+  });
+
   /* ---------- hero: interactive kitchen (doors/drawers open on hover) ---------- */
   const heroImg = document.getElementById('heroKitchenImg');
   if (heroImg) {
@@ -480,6 +486,7 @@
           <div class="callback-alt-links">
             <a href="https://wa.me/79267739777?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21" target="_blank" rel="noopener">WhatsApp</a>
             <a href="https://t.me/Eugene_grishaev" target="_blank" rel="noopener">Telegram</a>
+            <a href="#" data-max-pending="true">MAX</a>
           </div>
         </div>
       </div>
@@ -541,6 +548,74 @@
     const onScrollTop = () => { toTopFab.hidden = window.scrollY < 480; };
     onScrollTop();
     window.addEventListener('scroll', onScrollTop, { passive: true });
+  })();
+
+  /* ---------- hero CTA: "Обсудим проект?" opens a contact-choice popup ---------- */
+  (() => {
+    const heroBtn = document.getElementById('heroCtaBtn');
+    if (!heroBtn) return;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'contact-modal-overlay';
+    overlay.hidden = true;
+    overlay.innerHTML = `
+      <div class="contact-modal" role="dialog" aria-modal="true" aria-label="Как удобнее связаться">
+        <button type="button" class="callback-close" id="contactModalClose" aria-label="Закрыть">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+        </button>
+        <h3>Как вам удобнее связаться?</h3>
+        <p>Выберите способ — ответим в течение рабочего дня.</p>
+        <div class="contact-modal-options">
+          <a class="contact-option" href="https://wa.me/${WHATSAPP_NUMBER}?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><use href="#icon-chat"/></svg>
+            <span>WhatsApp</span>
+          </a>
+          <a class="contact-option" href="https://t.me/Eugene_grishaev" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><use href="#icon-send"/></svg>
+            <span>Telegram</span>
+          </a>
+          <a class="contact-option" href="#" data-max-pending="true">
+            <svg viewBox="0 0 24 24"><use href="#icon-max"/></svg>
+            <span>MAX</span>
+          </a>
+          <a class="contact-option" href="tel:+79267739777">
+            <svg viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
+            <span>Позвонить</span>
+          </a>
+        </div>
+        <a class="contact-modal-form-link" href="#cta" id="contactModalFormLink">
+          Или заполните заявку на сайте
+          <svg viewBox="0 0 24 24"><use href="#icon-arrow"/></svg>
+        </a>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    const modal = overlay.querySelector('.contact-modal');
+    const closeBtn = document.getElementById('contactModalClose');
+    const formLink = document.getElementById('contactModalFormLink');
+
+    const openModal = () => {
+      overlay.hidden = false;
+      requestAnimationFrame(() => overlay.classList.add('is-open'));
+    };
+    const closeModal = () => {
+      overlay.classList.remove('is-open');
+      setTimeout(() => { overlay.hidden = true; }, 200);
+    };
+
+    heroBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal();
+    });
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !overlay.hidden) closeModal(); });
+    formLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeModal();
+      document.getElementById('cta').scrollIntoView({ behavior: 'smooth' });
+    });
   })();
 
   /* ---------- cookie consent banner ---------- */
