@@ -401,19 +401,30 @@
     `).join('');
   });
 
-  /* ---------- lead form -> WhatsApp deep link ---------- */
+  /* ---------- lead form -> WhatsApp deep link (or Web Share, if a file is attached) ---------- */
   const form = document.getElementById('leadForm');
   const status = document.getElementById('formStatus');
   const WHATSAPP_NUMBER = '79267739777';
 
+  const fileInput = document.getElementById('f-file');
+  const fileFieldLabel = document.getElementById('fileFieldLabel');
+  if (fileInput && fileFieldLabel) {
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files && fileInput.files[0];
+      fileInput.closest('.file-field').classList.toggle('has-file', !!file);
+      fileFieldLabel.textContent = file ? file.name : 'Прикрепить файл';
+    });
+  }
+
   if (form && status) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const data = new FormData(form);
       const name = (data.get('name') || '').toString().trim();
       const phone = (data.get('phone') || '').toString().trim();
       const project = (data.get('project') || '').toString().trim();
       const comment = (data.get('comment') || '').toString().trim();
+      const file = fileInput && fileInput.files && fileInput.files[0];
 
       if (!name || !phone) {
         status.hidden = false;
@@ -428,13 +439,38 @@
         project ? `Интересует: ${project}` : null,
         comment ? `Комментарий: ${comment}` : null
       ].filter(Boolean);
+      const text = lines.join('\n');
 
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
       status.hidden = false;
       status.style.color = '';
-      status.textContent = 'Открываем WhatsApp с готовым сообщением…';
+
+      // A file was attached: try the native share sheet so it actually travels
+      // with the message (wa.me links are text-only and can't carry a file).
+      if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({ files: [file], title: 'Заявка — Гришаевская Мануфактура', text });
+          status.textContent = 'Открываем меню отправки — выберите WhatsApp, Telegram или другой способ.';
+          form.reset();
+          fileInput.closest('.file-field').classList.remove('has-file');
+          fileFieldLabel.textContent = 'Прикрепить файл';
+          return;
+        } catch (err) {
+          // user cancelled the share sheet — don't also pop open WhatsApp
+          status.textContent = 'Отправка отменена.';
+          return;
+        }
+      }
+
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+      status.textContent = file
+        ? 'Открываем WhatsApp с готовым сообщением — файл приложите вручную в чате (эта кнопка отправляет текст, не файл).'
+        : 'Открываем WhatsApp с готовым сообщением…';
       window.open(url, '_blank', 'noopener');
       form.reset();
+      if (fileInput) {
+        fileInput.closest('.file-field').classList.remove('has-file');
+        fileFieldLabel.textContent = 'Прикрепить файл';
+      }
     });
   }
 
@@ -550,27 +586,46 @@
     window.addEventListener('scroll', onScrollTop, { passive: true });
   })();
 
-  /* ---------- hero CTA: "Обсудим проект?" opens a contact-choice popup ---------- */
+  /* ---------- contact-choice popup: any "Обсудим проект?" / "Стать партнёром" trigger ---------- */
   (() => {
-    const heroBtn = document.getElementById('heroCtaBtn');
-    if (!heroBtn) return;
+    const triggers = document.querySelectorAll('[data-contact-trigger]');
+    if (!triggers.length) return;
+
+    const CONFIGS = {
+      general: {
+        label: 'Как удобнее связаться',
+        title: 'Как вам удобнее связаться?',
+        desc: 'Выберите способ — ответим в течение рабочего дня.',
+        whatsapp: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Здравствуйте! Хочу обсудить проект.')}`,
+        telegram: 'https://t.me/Eugene_grishaev',
+        showFormLink: true,
+      },
+      partner: {
+        label: 'Как обсудим сотрудничество',
+        title: 'Как вам удобнее обсудить сотрудничество?',
+        desc: 'Дизайнер интерьеров, риелтор или застройщик — напишите, как удобнее, ответим в течение рабочего дня.',
+        whatsapp: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Здравствуйте, хочу обсудить партнёрство.')}`,
+        telegram: 'https://t.me/Eugene_grishaev',
+        showFormLink: false,
+      },
+    };
 
     const overlay = document.createElement('div');
     overlay.className = 'contact-modal-overlay';
     overlay.hidden = true;
     overlay.innerHTML = `
-      <div class="contact-modal" role="dialog" aria-modal="true" aria-label="Как удобнее связаться">
+      <div class="contact-modal" role="dialog" aria-modal="true" aria-label="Выбор способа связи">
         <button type="button" class="callback-close" id="contactModalClose" aria-label="Закрыть">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
         </button>
-        <h3>Как вам удобнее связаться?</h3>
-        <p>Выберите способ — ответим в течение рабочего дня.</p>
+        <h3 id="contactModalTitle"></h3>
+        <p id="contactModalDesc"></p>
         <div class="contact-modal-options">
-          <a class="contact-option" href="https://wa.me/${WHATSAPP_NUMBER}?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82." target="_blank" rel="noopener">
+          <a class="contact-option" id="contactModalWa" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24"><use href="#icon-chat"/></svg>
             <span>WhatsApp</span>
           </a>
-          <a class="contact-option" href="https://t.me/Eugene_grishaev" target="_blank" rel="noopener">
+          <a class="contact-option" id="contactModalTg" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24"><use href="#icon-send"/></svg>
             <span>Telegram</span>
           </a>
@@ -583,7 +638,7 @@
             <span>Позвонить</span>
           </a>
         </div>
-        <a class="contact-modal-form-link" href="#cta" id="contactModalFormLink">
+        <a class="contact-modal-form-link" href="index.html#cta" id="contactModalFormLink">
           Или заполните заявку на сайте
           <svg viewBox="0 0 24 24"><use href="#icon-arrow"/></svg>
         </a>
@@ -591,11 +646,20 @@
     `;
     document.body.appendChild(overlay);
 
-    const modal = overlay.querySelector('.contact-modal');
     const closeBtn = document.getElementById('contactModalClose');
     const formLink = document.getElementById('contactModalFormLink');
+    const titleEl = document.getElementById('contactModalTitle');
+    const descEl = document.getElementById('contactModalDesc');
+    const waEl = document.getElementById('contactModalWa');
+    const tgEl = document.getElementById('contactModalTg');
 
-    const openModal = () => {
+    const openModal = (kind) => {
+      const cfg = CONFIGS[kind] || CONFIGS.general;
+      titleEl.textContent = cfg.title;
+      descEl.textContent = cfg.desc;
+      waEl.href = cfg.whatsapp;
+      tgEl.href = cfg.telegram;
+      formLink.hidden = !cfg.showFormLink;
       overlay.hidden = false;
       requestAnimationFrame(() => overlay.classList.add('is-open'));
     };
@@ -604,9 +668,11 @@
       setTimeout(() => { overlay.hidden = true; }, 200);
     };
 
-    heroBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openModal();
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal(trigger.dataset.contactTrigger);
+      });
     });
     closeBtn.addEventListener('click', closeModal);
     overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
@@ -614,7 +680,12 @@
     formLink.addEventListener('click', (e) => {
       e.preventDefault();
       closeModal();
-      document.getElementById('cta').scrollIntoView({ behavior: 'smooth' });
+      const cta = document.getElementById('cta');
+      if (cta) {
+        cta.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.location.href = 'index.html#cta';
+      }
     });
   })();
 
