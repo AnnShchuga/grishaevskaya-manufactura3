@@ -194,7 +194,7 @@ h2.section-title{
   font-size: 1rem;
   letter-spacing: -.01em;
   padding: .95rem 1.7rem;
-  border-radius: 999px;
+  border-radius: var(--radius);
   transition: transform .3s var(--ease), background .25s, color .25s, box-shadow .3s;
   white-space: nowrap;
 }
@@ -508,7 +508,7 @@ h2.section-title{
 .case-tag{
   position: absolute; left: 14px; top: 14px; z-index: 2;
   font-family: var(--font-display); font-weight: 600; font-size: .72rem; letter-spacing:.02em; text-transform: none;
-  color: var(--white); background: rgba(20,13,10,.45); padding: .4rem .75rem; border-radius: 999px; backdrop-filter: blur(6px);
+  color: var(--white); background: rgba(20,13,10,.45); padding: .4rem .75rem; border-radius: var(--radius-sm); backdrop-filter: blur(6px);
   transition: background .3s;
 }
 .case-meta{ margin-top: 1.1rem; }
@@ -786,7 +786,7 @@ h2.section-title{
 .trust-chip{
   font-family: var(--font-display); font-weight: 600; font-size: .82rem;
   border: 1px solid var(--line-2); color: var(--ink);
-  padding: .55rem 1rem; border-radius: 999px;
+  padding: .55rem 1rem; border-radius: var(--radius-sm);
 }
 
 .brand-logos{
@@ -826,7 +826,7 @@ h2.section-title{
 .filter-chip{
   font-family: var(--font-display); font-weight: 600; font-size: .86rem;
   border: 1px solid var(--line-2); color: rgba(29,29,31,.6);
-  padding: .58rem 1.15rem; border-radius: 999px; transition: all .2s;
+  padding: .58rem 1.15rem; border-radius: var(--radius-sm); transition: all .2s;
 }
 .filter-chip:hover{ border-color: var(--ink); color: var(--ink); }
 .filter-chip.is-active{ background: var(--walnut); border-color: var(--walnut); color: var(--white); }
@@ -946,7 +946,7 @@ h2.section-title{
 .fab{
   display: flex; align-items: center; gap: .55rem;
   background: var(--walnut); color: var(--white);
-  border: none; border-radius: 999px; cursor: pointer;
+  border: none; border-radius: var(--radius); cursor: pointer;
   padding: .9rem 1.15rem; font-family: var(--font-display); font-weight: 600; font-size: .86rem;
   box-shadow: var(--shadow-md);
   transition: background .25s, transform .25s, box-shadow .25s;
@@ -996,7 +996,7 @@ h2.section-title{
   flex: 1; text-align: center;
   font-family: var(--font-display); font-weight: 600; font-size: .86rem;
   border: 1px solid var(--line-2); color: var(--ink);
-  padding: .6rem .8rem; border-radius: var(--radius-btn, 999px);
+  padding: .6rem .8rem; border-radius: var(--radius-sm);
   transition: background .2s, border-color .2s;
 }
 .callback-alt-links a:hover{ background: var(--paper); border-color: var(--walnut); }
