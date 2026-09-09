@@ -96,7 +96,7 @@
 
 /* ---- reset ---- */
 *, *::before, *::after{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; }
+html{ scroll-behavior: smooth; overflow-x: hidden; }
 body, h1, h2, h3, h4, p, figure, blockquote{ margin: 0; }
 ul, ol{ margin: 0; padding: 0; list-style: none; }
 img, svg{ display: block; max-width: 100%; }
@@ -388,7 +388,20 @@ h2.section-title{
   font-weight: 400;
   color: rgba(255,255,255,.85);
 }
-.hero-cta{ display: flex; flex-wrap: wrap; gap: 1rem; margin-top: clamp(2rem, 3vw, 2.6rem); }
+.hero-cta{ display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: clamp(2rem, 3vw, 2.6rem); }
+.hero-msg-choice{ display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; }
+.hero-msg-label{ font-size: .85rem; color: rgba(255,255,255,.62); margin-right: .1rem; }
+.btn-msg{
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-family: var(--font-display); font-weight: 600; font-size: .88rem;
+  color: var(--white); border: 1px solid rgba(255,255,255,.32);
+  background: rgba(255,255,255,.06); backdrop-filter: blur(6px);
+  padding: .6rem 1rem; border-radius: 999px;
+  transition: background .25s, border-color .25s, transform .25s var(--ease);
+}
+.btn-msg svg{ width: 16px; height: 16px; flex: none; }
+.btn-msg:hover{ background: var(--white); color: var(--espresso); border-color: var(--white); transform: translateY(-2px); }
+@media (max-width: 480px){ .hero-msg-label{ width: 100%; margin-bottom: -.2rem; } }
 
 /* ==========================================================================
    Marquee stat strip
@@ -482,7 +495,7 @@ h2.section-title{
   aspect-ratio: 4/5;
   position: relative;
   overflow: hidden;
-  border-radius: var(--radius-lg);
+  border-radius: 6px;
   box-shadow: var(--shadow-sm);
   transition: box-shadow .5s var(--ease), transform .6s var(--ease);
   background-color: #4a322b;
@@ -519,7 +532,7 @@ h2.section-title{
   margin-top: 1rem;
   background: var(--paper-2);
   border: 0;
-  border-radius: var(--radius-lg);
+  border-radius: 10px;
   display: grid;
   grid-template-columns: minmax(0,280px) minmax(0,1fr);
   overflow: hidden;
@@ -690,6 +703,7 @@ h2.section-title{
 }
 .field input:focus, .field textarea:focus{ border-color: var(--walnut); background: var(--white); }
 .field textarea{ resize: vertical; min-height: 84px; }
+.field-hint{ font-size: .78rem; color: rgba(29,29,31,.5); margin-top: .5rem; }
 .form-consent{ font-size: .76rem; color: rgba(29,29,31,.5); margin-top: 1rem; font-style: normal; }
 .form-status{ font-size: .86rem; margin-top: .8rem; color: var(--walnut); font-weight: 650; }
 
@@ -938,6 +952,10 @@ h2.section-title{
   position: fixed; right: clamp(1rem, 3vw, 1.8rem); bottom: clamp(1rem, 3vw, 1.8rem);
   z-index: 80; display: flex; flex-direction: column; align-items: flex-end; gap: .7rem;
 }
+.floating-top-widget{
+  position: fixed; right: clamp(1rem, 3vw, 1.8rem); top: clamp(4.6rem, 9vw, 5.6rem);
+  z-index: 80;
+}
 .fab{
   display: flex; align-items: center; gap: .55rem;
   background: var(--walnut); color: var(--white);
@@ -983,6 +1001,18 @@ h2.section-title{
 }
 .callback-close:hover{ color: var(--ink); }
 .callback-close svg{ width: 18px; height: 18px; }
+
+.callback-alt{ margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px solid var(--line); }
+.callback-alt > span{ display: block; font-size: .8rem; color: rgba(29,29,31,.55); margin-bottom: .6rem; }
+.callback-alt-links{ display: flex; gap: .6rem; }
+.callback-alt-links a{
+  flex: 1; text-align: center;
+  font-family: var(--font-display); font-weight: 600; font-size: .86rem;
+  border: 1px solid var(--line-2); color: var(--ink);
+  padding: .6rem .8rem; border-radius: var(--radius-btn, 999px);
+  transition: background .2s, border-color .2s;
+}
+.callback-alt-links a:hover{ background: var(--paper); border-color: var(--walnut); }
 
 @media (prefers-reduced-motion: reduce){
   .callback-panel{ animation: none; }

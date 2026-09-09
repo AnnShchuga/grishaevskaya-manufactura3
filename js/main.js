@@ -302,7 +302,7 @@
       </div>
       <div class="case-meta">
         <h4>${item.title}</h4>
-        <p>${item.days}</p>
+        <p>${item.price}</p>
       </div>`;
   }
 
@@ -449,7 +449,7 @@
     });
   }
 
-  /* ---------- floating widgets: scroll-to-top + quick callback request ---------- */
+  /* ---------- floating widgets: scroll-to-top (top of screen) + quick callback request (bottom) ---------- */
   (() => {
     const wrap = document.createElement('div');
     wrap.className = 'floating-widgets';
@@ -475,16 +475,29 @@
           </button>
           <p class="form-status" id="callbackStatus" hidden></p>
         </form>
+        <div class="callback-alt">
+          <span>Не любите звонки? Напишите в мессенджер:</span>
+          <div class="callback-alt-links">
+            <a href="https://wa.me/79267739777?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21" target="_blank" rel="noopener">WhatsApp</a>
+            <a href="https://t.me/Eugene_grishaev" target="_blank" rel="noopener">Telegram</a>
+          </div>
+        </div>
       </div>
       <button type="button" class="fab fab-callback" id="callbackFab" aria-haspopup="dialog" aria-expanded="false">
         <svg viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
         <span>Обратный звонок</span>
       </button>
+    `;
+    document.body.appendChild(wrap);
+
+    const topWrap = document.createElement('div');
+    topWrap.className = 'floating-top-widget';
+    topWrap.innerHTML = `
       <button type="button" class="fab fab-top" id="toTopFab" aria-label="Наверх страницы" hidden>
         <svg viewBox="0 0 24 24"><use href="#icon-arrow"/></svg>
       </button>
     `;
-    document.body.appendChild(wrap);
+    document.body.appendChild(topWrap);
 
     const fab = document.getElementById('callbackFab');
     const panel = document.getElementById('callbackPanel');
