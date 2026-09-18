@@ -536,7 +536,7 @@
         <button type="button" class="callback-close" id="callbackClose" aria-label="Закрыть">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
         </button>
-        <h3>Перезвоните мне</h3>
+        <h3>Свяжитесь с нами</h3>
         <p>Оставьте имя и телефон — перезвоним в течение рабочего дня.</p>
         <form id="callbackForm">
           <div class="field">
@@ -556,9 +556,9 @@
         <div class="callback-alt">
           <span>Не любите звонки? Напишите в мессенджер:</span>
           <div class="callback-alt-links">
-            <a href="#" data-max-copy="true">MAX</a>
-            <a href="https://t.me/Eugene_grishaev" target="_blank" rel="noopener">Telegram</a>
-            <a href="https://wa.me/79267739777?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21" target="_blank" rel="noopener">WhatsApp</a>
+            <a href="#" data-max-copy="true"><svg viewBox="0 0 24 24"><use href="#detail-max"/></svg><span>MAX</span></a>
+            <a href="https://t.me/Eugene_grishaev" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#detail-telegram"/></svg><span>Telegram</span></a>
+            <a href="https://wa.me/79267739777?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#detail-whatsapp"/></svg><span>WhatsApp</span></a>
           </div>
         </div>
       </div>

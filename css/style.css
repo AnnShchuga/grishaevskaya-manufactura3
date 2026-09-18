@@ -1010,13 +1010,16 @@ h2.section-title{
 .callback-alt > span{ display: block; font-size: .8rem; color: rgba(29,29,31,.55); margin-bottom: .6rem; }
 .callback-alt-links{ display: flex; gap: .6rem; }
 .callback-alt-links a{
-  flex: 1; text-align: center;
-  font-family: var(--font-display); font-weight: 600; font-size: .86rem;
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: .35rem;
+  text-align: center;
+  font-family: var(--font-display); font-weight: 600; font-size: .82rem;
   border: 1px solid var(--line-2); color: var(--ink);
-  padding: .6rem .8rem; border-radius: var(--radius-sm);
+  padding: .65rem .5rem; border-radius: var(--radius-sm);
   transition: background .2s, border-color .2s;
 }
+.callback-alt-links a svg{ width: 20px; height: 20px; }
 .callback-alt-links a:hover{ background: var(--paper); border-color: var(--walnut); }
+.callback-alt-links a.is-copied{ background: var(--paper); border-color: var(--walnut); color: var(--walnut); }
 
 /* ==========================================================================
    Contact-choice popup (hero "Обсудим проект?")
