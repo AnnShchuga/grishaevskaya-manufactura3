@@ -273,7 +273,7 @@
     </div>
   </section>
 
-  <section class="pad bg-sand hairline-top" id="cta">
+  <section class="pad bg-cream hairline-top" id="cta">
     <div class="wrap cta-grid">
       <div class="cta-copy" data-reveal>
         <h2>Обсудим ваш проект?</h2>
@@ -306,6 +306,17 @@
         <div class="field">
           <label for="f-comment">Комментарий</label>
           <textarea id="f-comment" name="comment" placeholder="Метраж, сроки, пожелания — что угодно"></textarea>
+        </div>
+        <div class="field">
+          <label for="f-file">Эскиз, фото или план (необязательно)</label>
+          <div class="file-field">
+            <input id="f-file" name="file" type="file" accept="image/*,.pdf,.heic">
+            <label for="f-file" class="file-field-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+              <span id="fileFieldLabel">Прикрепить файл</span>
+            </label>
+          </div>
+          <p class="field-hint" id="fileHint">На телефоне файл уйдёт вместе с сообщением через WhatsApp или Telegram — при отправке форма предложит выбрать мессенджер. На компьютере просто приложите его в открывшемся чате.</p>
         </div>
         <button type="submit" class="btn btn-primary btn-block">
           Отправить в WhatsApp
