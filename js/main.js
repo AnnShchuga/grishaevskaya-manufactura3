@@ -657,17 +657,17 @@
         <h3 id="contactModalTitle"></h3>
         <p id="contactModalDesc"></p>
         <div class="contact-modal-options">
-          <a class="contact-option" id="contactModalWa" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><use href="#detail-whatsapp"/></svg>
-            <span>WhatsApp</span>
+          <a class="contact-option" href="#" data-max-copy="true">
+            <svg viewBox="0 0 24 24"><use href="#detail-max"/></svg>
+            <span>MAX</span>
           </a>
           <a class="contact-option" id="contactModalTg" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24"><use href="#detail-telegram"/></svg>
             <span>Telegram</span>
           </a>
-          <a class="contact-option" href="#" data-max-copy="true">
-            <svg viewBox="0 0 24 24"><use href="#detail-max"/></svg>
-            <span>MAX</span>
+          <a class="contact-option" id="contactModalWa" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><use href="#detail-whatsapp"/></svg>
+            <span>WhatsApp</span>
           </a>
           <a class="contact-option" href="tel:+79267739777">
             <svg viewBox="0 0 24 24"><use href="#detail-phone"/></svg>
