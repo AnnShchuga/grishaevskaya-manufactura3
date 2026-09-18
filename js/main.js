@@ -556,9 +556,9 @@
         <div class="callback-alt">
           <span>Не любите звонки? Напишите в мессенджер:</span>
           <div class="callback-alt-links">
-            <a href="https://wa.me/79267739777?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21" target="_blank" rel="noopener">WhatsApp</a>
-            <a href="https://t.me/Eugene_grishaev" target="_blank" rel="noopener">Telegram</a>
             <a href="#" data-max-copy="true">MAX</a>
+            <a href="https://t.me/Eugene_grishaev" target="_blank" rel="noopener">Telegram</a>
+            <a href="https://wa.me/79267739777?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21" target="_blank" rel="noopener">WhatsApp</a>
           </div>
         </div>
       </div>
