@@ -564,7 +564,7 @@
       </div>
       <button type="button" class="fab fab-callback" id="callbackFab" aria-haspopup="dialog" aria-expanded="false">
         <svg viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
-        <span>Обратный звонок</span>
+        <span>Перезвоните мне</span>
       </button>
     `;
     document.body.appendChild(wrap);
