@@ -536,7 +536,7 @@
         <button type="button" class="callback-close" id="callbackClose" aria-label="Закрыть">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
         </button>
-        <h3>Закажите звонок</h3>
+        <h3>Перезвоните мне</h3>
         <p>Оставьте имя и телефон — перезвоним в течение рабочего дня.</p>
         <form id="callbackForm">
           <div class="field">
