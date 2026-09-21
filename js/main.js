@@ -333,6 +333,10 @@
 
   const PLACEHOLDER_MARK = 'assets/logo-mono.jpg';
 
+  function priceDisplay(item) {
+    return item.price.endsWith('/шт.') ? item.price + ' *' : item.price;
+  }
+
   function caseCardHTML(item, i) {
     const style = item.photo ? ` style="background-image:url('${item.photo}')"` : '';
     const placeholderCls = item.photo ? '' : ' is-placeholder';
@@ -344,7 +348,7 @@
       </div>
       <div class="case-meta">
         <h4>${item.title}</h4>
-        <p>${item.price}</p>
+        <p>${priceDisplay(item)}</p>
       </div>`;
   }
 
@@ -367,8 +371,8 @@
           <dl class="case-stat"><dt>Формат</dt><dd>${item.area}</dd></dl>
           <dl class="case-stat"><dt>Материал</dt><dd>${item.material}</dd></dl>
           <dl class="case-stat"><dt>Срок</dt><dd>${item.days}</dd></dl>
-          <dl class="case-stat"><dt>Стоимость</dt><dd>${item.price}</dd></dl>
-          <p class="case-quote">${item.note}</p>
+          <dl class="case-stat"><dt>Стоимость</dt><dd>${priceDisplay(item)}</dd></dl>
+          <p class="case-quote">${item.note}${item.price.endsWith('/шт.') ? ' <em>* Ориентировочная стоимость за шкаф шириной 1 метр, без наполнения внутри.</em>' : ''}</p>
         </div>
       `;
     }
