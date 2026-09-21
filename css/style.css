@@ -912,8 +912,8 @@ h2.section-title{
 
   .trust-grid{ grid-template-columns: 1fr; }
   .grid-cards{ grid-template-columns: repeat(2,1fr); }
-  .footer-grid{ grid-template-columns: 1fr 1fr; }
-  .footer-brand{ grid-column: span 2; }
+  .footer-grid{ grid-template-columns: repeat(3,1fr); }
+  .footer-brand{ grid-column: span 3; }
   .article-card{ grid-template-columns: 1fr; }
 }
 
