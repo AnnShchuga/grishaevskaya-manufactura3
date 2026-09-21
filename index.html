@@ -189,6 +189,9 @@
   <symbol id="icon-cube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
     <path d="M12 2.5 20.5 7v10L12 21.5 3.5 17V7Z"/><path d="M3.5 7 12 11.5l8.5-4.5M12 11.5V21"/>
   </symbol>
+  <symbol id="icon-ruler" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2.5" y="9" width="19" height="6" rx="1.2"/><path d="M6.5 9v2.4M10 9v3.4M13.5 9v2.4M17 9v3.4"/>
+  </symbol>
 </defs>
 </svg>
 <header class="site-header on-hero" id="siteHeader">
@@ -300,11 +303,12 @@
 
   <!-- ============================= TRUST / PROBLEM-SOLUTION ============================= -->
   <section class="pad bg-cream hairline-top">
-    <div class="wrap">
-      <div data-reveal style="max-width:44rem">
+    <div class="wrap trust-grid">
+      <div data-reveal>
         <p class="trust-problem">После ремонта — ещё и мебель ждать, снова всё контролировать самому?</p>
         <p class="trust-solution">Мы берём полный цикл на себя: от замера до монтажа — и держим на связи одного человека, а не разных подрядчиков на каждом этапе.</p>
       </div>
+      <svg class="trust-icon" role="img" aria-label="Замер"><use href="#icon-ruler"/></svg>
     </div>
   </section>
 
@@ -440,7 +444,7 @@
 
       <div class="timeline" data-reveal>
         <div class="tl-step"><div class="tl-dot">1</div><h4>Консультация</h4><p>Обсуждаем задачу, бюджет и сроки.</p></div>
-        <div class="tl-step"><div class="tl-dot">2</div><h4>Замер</h4><p>Выезжаем на объект, фиксируем параметры.</p></div>
+        <div class="tl-step"><div class="tl-dot">2</div><h4>Замер <svg class="tl-step-icon" role="img" aria-label="Замер"><use href="#icon-ruler"/></svg></h4><p>Выезжаем на объект, фиксируем параметры.</p></div>
         <div class="tl-step"><div class="tl-dot">3</div><h4>Проект</h4><p>Готовим дизайн-проект и расчёт стоимости.</p></div>
         <div class="tl-step"><div class="tl-dot">4</div><h4>Согласование</h4><p>Утверждаем материалы, фурнитуру и цену — фиксируем в&nbsp;договоре.</p></div>
         <div class="tl-step"><div class="tl-dot">5</div><h4>Производство</h4><p>Изготавливаем на&nbsp;собственном цехе.</p></div>
