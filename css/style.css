@@ -698,14 +698,16 @@ h2.section-title{
   position: absolute; inset: 0; width: 100%; height: 100%;
   opacity: 0; cursor: pointer;
 }
-.file-field-btn{
+.file-field .file-field-btn{
   display: flex; align-items: center; gap: .5rem;
   width: 100%; border: 1px dashed var(--line-2); background: var(--paper-2);
   border-radius: var(--radius-sm); padding: .85rem 1rem;
   font-family: var(--font-display); font-weight: 600; font-size: .92rem; color: rgba(29,29,31,.65);
+  text-transform: none; letter-spacing: normal; margin-bottom: 0;
   transition: border-color .2s, background .2s, color .2s;
 }
 .file-field-btn svg{ width: 18px; height: 18px; flex: none; color: var(--walnut); }
+.file-field-btn span{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .file-field input[type="file"]:hover ~ .file-field-btn,
 .file-field input[type="file"]:focus ~ .file-field-btn{ border-color: var(--walnut); color: var(--ink); }
 .file-field.has-file .file-field-btn{ border-style: solid; border-color: var(--walnut); color: var(--ink); background: var(--white); }
