@@ -197,8 +197,9 @@
       area: '12–14 м²', material: 'МДФ эмаль, ЛДСП Egger', days: '18 дней', price: '20 000–100 000 ₽/пог. м',
       note: 'Типовой формат для новостройки: угловой гарнитур, встроенная техника, барная стойка по запросу.',
       photo: 'assets/photos/case-kh.jpg' },
-    { mono: 'Шк', tag: 'Шкаф-купе', cat: 'wardrobe', title: 'Шкаф-купе в прихожую со&nbsp;стеклянными фасадами',
-      area: 'до потолка', material: 'ЛДСП, стекло', days: '20 дней', price: '25 000–80 000 ₽/шт.',
+    { mono: 'Шк', tag: 'Шкаф-купе', cat: 'wardrobe', title: 'Шкаф-купе в прихожую',
+      titlePortfolio: 'Шкаф-купе в прихожую с&nbsp;зеркальными фасадами',
+      area: 'до потолка', material: 'ЛДСП, зеркало', days: '20 дней', price: '25 000–80 000 ₽/шт.',
       note: 'Максимум места хранения без визуального утяжеления коридора — фасады в цвет стен или контрастные.',
       photo: 'assets/photos/case-w6.jpg' },
     { mono: 'Гд', tag: 'Гардеробная', cat: 'dressing', title: 'Гардеробная с системой хранения',
@@ -206,6 +207,7 @@
       note: 'Открытые и закрытые модули, штанги, выдвижные ящики — наполнение считаем под ваш гардероб.',
       photo: 'assets/photos/case-d5.jpg' },
     { mono: 'Ко', tag: 'Кухня-остров', cat: 'kitchen', title: 'Кухня с полуостровом и обеденной группой',
+      hidePortfolio: true,
       area: '18–22 м²', material: 'МДФ эмаль, фурнитура Blum', days: '24 дня', price: '20 000–100 000 ₽/пог. м',
       note: 'Формат для просторных кухонь-гостиных: остров как рабочая зона и место для общения.',
       photo: 'assets/photos/case-ko.jpg' },
@@ -218,6 +220,7 @@
       note: 'Минимум площади — максимум функции: открытые полки и продуманное хранение для небольшой кухни.',
       photo: 'assets/photos/case-km.jpg' },
     { mono: 'Шс', tag: 'Шкаф-купе', cat: 'wardrobe', title: 'Встроенный шкаф-купе в спальню',
+      hidePortfolio: true,
       area: 'ниша 2,4 м', material: 'ЛДСП, фурнитура с бронзовым профилем', days: '14 дней', price: '25 000–80 000 ₽/шт.',
       note: 'Встроенная конструкция без боковых стенок — использует нишу целиком, открытый стеллаж сбоку под мелочи.',
       photo: 'assets/photos/case-shs.jpg' },
@@ -238,6 +241,7 @@
       note: 'Типовой запрос после сдачи ЖК: меблировка сразу после ремонта, один подрядчик на весь объём.',
       photo: 'assets/photos/case-a7.jpg' },
     { mono: 'Шр', tag: 'Шкаф-купе', cat: 'wardrobe', title: 'Радиусный шкаф-купе',
+      hidePortfolio: true,
       area: 'угловой, радиус 900 мм', material: 'ЛДСП, гнутое стекло', days: '25 дней', price: 'от 30 000 ₽/шт.',
       note: 'Скруглённый корпус вместо острого угла — сложнее в производстве, но существенно экономит проходное пространство.',
       photo: 'assets/photos/case-w7.jpg' },
@@ -250,6 +254,7 @@
       note: 'Верхний ряд — тёплое дерево, нижний — фактура бетона: контраст фактур вместо контраста цвета.',
       photo: 'assets/photos/case-kb.jpg' },
     { mono: 'Кс', tag: 'Кухня', cat: 'kitchen', title: 'Кухня в тёмно-синем цвете',
+      hidePortfolio: true,
       area: '11–13 м²', material: 'МДФ эмаль, ЛДСП', days: '21 день', price: '20 000–100 000 ₽/пог. м',
       note: 'Глубокий синий низ и светлый рифлёный верх — цвет и фактура работают на зонирование маленькой кухни.',
       photo: 'assets/photos/case-ks.jpg' },
@@ -262,6 +267,7 @@
       note: 'Светлый верх и синий низ, ниша под встроенный холодильник — компактная кухня без ощущения тесноты.',
       photo: 'assets/photos/case-kj.jpg' },
     { mono: 'Кэ', tag: 'Кухня', cat: 'kitchen', title: 'Кухня в изумрудно-бирюзовом цвете',
+      hidePortfolio: true,
       area: '10–12 м²', material: 'МДФ эмаль, столешница из массива', days: '21 день', price: '20 000–100 000 ₽/пог. м',
       note: 'Ещё один вариант насыщенного цвета фасадов — деревянная столешница смягчает контраст с тёмной техникой.',
       photo: 'assets/photos/case-kz.jpg' },
@@ -278,10 +284,12 @@
       note: 'Дневной свет из окна и барная стойка вместо обеденного стола — решение для кухни-студии.',
       photo: 'assets/photos/case-kp.jpg' },
     { mono: 'Шл', tag: 'Шкаф-купе', cat: 'wardrobe', title: 'Шкаф с латунными ручками',
+      hidePortfolio: true,
       area: 'до потолка', material: 'ЛДСП, латунная фурнитура, шпон ореха', days: '16 дней', price: '25 000–80 000 ₽/шт.',
       note: 'Открытый ореховый стеллаж сбоку и латунные ручки на всю высоту дверцы — акцент вместо типовой фурнитуры.',
       photo: 'assets/photos/case-w1.jpg' },
     { mono: 'Шт', tag: 'Шкаф-купе', cat: 'wardrobe', title: 'Шкаф-купе со&nbsp;стеклянными фасадами',
+      hidePortfolio: true,
       area: 'встроенный, до потолка', material: 'ЛДСП, тонированное стекло', days: '19 дней', price: '25 000–80 000 ₽/шт.',
       note: 'Тёмное тонированное стекло вместо глухих фасадов — шкаф не давит на небольшую комнату.',
       photo: 'assets/photos/case-w2.jpg' },
@@ -322,6 +330,7 @@
       note: 'Столешница на всю ширину окна вместо отдельного стола — рабочее место, которое не отнимает площадь комнаты.',
       photo: 'assets/photos/case-a2.jpg' },
     { mono: 'Рд', tag: 'Детская', cat: 'apartment', title: 'Рабочий уголок в детской',
+      hidePortfolio: true,
       area: 'по размеру ниши', material: 'ЛДСП, столешница', days: '11 дней', price: 'от 10 000 ₽/усл.',
       note: 'Встроенный стол под окном в детской — используем нишу, которая иначе осталась бы пустой.',
       photo: 'assets/photos/case-a3.jpg' },
@@ -372,7 +381,7 @@
           <dl class="case-stat"><dt>Материал</dt><dd>${item.material}</dd></dl>
           <dl class="case-stat"><dt>Срок</dt><dd>${item.days}</dd></dl>
           <dl class="case-stat"><dt>Стоимость</dt><dd>${priceDisplay(item)}</dd></dl>
-          <p class="case-quote">${item.note}${item.price.endsWith('/шт.') ? ' <em>* Ориентировочная стоимость за шкаф шириной 1 метр, без наполнения внутри.</em>' : ''}</p>
+          <p class="case-quote">${item.note}${item.price.endsWith('/шт.') ? '<br><span class="case-footnote-inline">* Ориентировочная стоимость за шкаф шириной 1 метр, без наполнения внутри.</span>' : ''}</p>
         </div>
       `;
     }
@@ -401,12 +410,16 @@
     let shown = PAGE_SIZE;
 
     function currentSet() {
-      return activeCat === 'all' ? CASES : CASES.filter(c => c.cat === activeCat);
+      const base = activeCat === 'all' ? CASES : CASES.filter(c => c.cat === activeCat);
+      return base.filter(c => !c.hidePortfolio);
     }
 
     function render() {
       const set = currentSet();
-      grid.innerHTML = set.slice(0, shown).map((item, i) => `<a class="grid-card" href="#cta">${caseCardHTML(item, i)}</a>`).join('');
+      grid.innerHTML = set.slice(0, shown).map((item, i) => {
+        const cardItem = item.titlePortfolio ? { ...item, title: item.titlePortfolio } : item;
+        return `<a class="grid-card" href="#cta">${caseCardHTML(cardItem, i)}</a>`;
+      }).join('');
       const btn = document.getElementById('loadMoreBtn');
       if (btn) btn.hidden = shown >= set.length;
     }

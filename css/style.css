@@ -544,6 +544,7 @@ h2.section-title{
 .case-detail-body .case-stat:nth-of-type(3) dt, .case-detail-body .case-stat:nth-of-type(3) dd{ grid-column: 3; }
 .case-detail-body .case-stat:nth-of-type(4) dt, .case-detail-body .case-stat:nth-of-type(4) dd{ grid-column: 4; }
 .case-quote{ grid-row: 4; grid-column: span 4; font-family: var(--font-body); font-weight: 400; font-size: 1.1rem; color: rgba(29,29,31,.68); border-top: 1px solid var(--line); padding-top: 1.5rem; }
+.case-footnote-inline{ display: inline-block; margin-top: .6rem; font-size: .82rem; color: rgba(29,29,31,.5); }
 
 /* ==========================================================================
    Advantages
