@@ -548,7 +548,7 @@
             <input id="cb-phone" name="phone" type="tel" placeholder="+7 900 000-00-00" required>
           </div>
           <button type="submit" class="btn btn-primary btn-block">
-            Перезвоните мне
+            Позвоните мне
             <svg viewBox="0 0 24 24"><use href="#icon-arrow"/></svg>
           </button>
           <p class="form-status" id="callbackStatus" hidden></p>
@@ -564,7 +564,7 @@
       </div>
       <button type="button" class="fab fab-callback" id="callbackFab" aria-haspopup="dialog" aria-expanded="false">
         <svg viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
-        <span>Перезвоните мне</span>
+        <span>Позвоните мне</span>
       </button>
     `;
     document.body.appendChild(wrap);
