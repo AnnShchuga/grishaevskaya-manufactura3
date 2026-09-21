@@ -778,7 +778,7 @@ h2.section-title{
 .trust-problem{ font-family: var(--font-headline); font-weight: 600; font-size: clamp(1.7rem,2.8vw,2.4rem); letter-spacing: -.02em; line-height: 1.22; margin-bottom: 1.1rem; color: var(--ink); }
 .trust-solution{ color: rgba(29,29,31,.6); font-size: 1.1rem; max-width: 52ch; }
 .trust-visual{ display: flex; align-items: center; justify-content: center; }
-.trust-mark-measurement{ width: clamp(120px,12vw,168px); height: clamp(120px,12vw,168px); flex-shrink: 0; transition: transform .3s ease; }
+.trust-mark-measurement{ width: clamp(140px,14vw,190px); height: clamp(140px,14vw,190px); flex-shrink: 0; transition: transform .35s cubic-bezier(.2,.8,.2,1); filter: drop-shadow(0 4px 12px rgba(38,22,18,.04)); }
 .trust-mark-measurement:hover{ transform: scale(1.03) rotate(-1deg); }
 .video-slot{
   aspect-ratio: 16/9; position: relative; overflow: hidden; background: var(--espresso);
@@ -916,7 +916,7 @@ h2.section-title{
 
   .trust-grid{ grid-template-columns: 1fr; }
   .trust-visual{ justify-content: flex-start; margin-top: 1.5rem; }
-  .trust-mark-measurement{ width: 96px; height: 96px; }
+  .trust-mark-measurement{ width: 110px; height: 110px; }
   .grid-cards{ grid-template-columns: repeat(2,1fr); }
   .footer-grid{ grid-template-columns: repeat(3,1fr); }
   .footer-brand{ grid-column: span 3; }
