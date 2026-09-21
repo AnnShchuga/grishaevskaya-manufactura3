@@ -448,7 +448,6 @@ h2.section-title{
 /* ==========================================================================
    Portfolio / carousel
    ========================================================================== */
-.price-footnote{ font-size: .86rem; color: rgba(29,29,31,.5); margin-top: 1.2rem; }
 .portfolio-carousel{ position: relative; }
 .carousel-track{
   display: flex;
