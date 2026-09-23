@@ -1028,7 +1028,6 @@ h2.section-title{
 }
 .callback-alt-links a svg{ width: 20px; height: 20px; }
 .callback-alt-links a:hover{ background: var(--paper); border-color: var(--walnut); }
-.callback-alt-links a.is-copied{ background: var(--paper); border-color: var(--walnut); color: var(--walnut); }
 
 /* ==========================================================================
    Contact-choice popup (hero "Обсудим проект?")
@@ -1064,7 +1063,6 @@ h2.section-title{
 }
 .contact-option svg{ width: 30px; height: 30px; }
 .contact-option:hover{ background: var(--white); border-color: var(--walnut); transform: translateY(-2px); }
-.contact-option.is-copied{ background: var(--white); border-color: var(--walnut); color: var(--walnut); }
 .contact-modal-form-link{
   display: flex; align-items: center; justify-content: center; gap: .5rem;
   margin-top: 1.3rem; padding-top: 1.2rem; border-top: 1px solid var(--line);

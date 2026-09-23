@@ -1,48 +1,6 @@
 (() => {
   'use strict';
 
-  /* ---------- MAX contact: no public profile link exists, so copy the phone number
-     (Евгений is only findable in MAX by phone) instead of guessing a broken deep link ---------- */
-  (() => {
-    const MAX_PHONE_RAW = '+79267739777';
-    const COPIED_LABEL = 'Скопировано!';
-
-    const copyText = async (text) => {
-      try {
-        await navigator.clipboard.writeText(text);
-        return true;
-      } catch (err) {
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        let ok = false;
-        try { ok = document.execCommand('copy'); } catch (e2) { ok = false; }
-        document.body.removeChild(ta);
-        return ok;
-      }
-    };
-
-    document.addEventListener('click', (e) => {
-      const link = e.target.closest('[data-max-copy="true"]');
-      if (!link) return;
-      e.preventDefault();
-      const labelEl = link.querySelector('span:not(.sub)') || link;
-      if (link.dataset.origLabel === undefined) link.dataset.origLabel = labelEl.textContent;
-      copyText(MAX_PHONE_RAW).then(() => {
-        labelEl.textContent = COPIED_LABEL;
-        link.classList.add('is-copied');
-        clearTimeout(link._maxCopyTimer);
-        link._maxCopyTimer = setTimeout(() => {
-          labelEl.textContent = link.dataset.origLabel;
-          link.classList.remove('is-copied');
-        }, 1800);
-      });
-    });
-  })();
-
   /* ---------- hero: interactive kitchen (doors/drawers open on hover) ---------- */
   const heroImg = document.getElementById('heroKitchenImg');
   if (heroImg) {
@@ -576,7 +534,7 @@
         <div class="callback-alt">
           <span>Не любите звонки? Напишите в мессенджер:</span>
           <div class="callback-alt-links">
-            <a href="#" data-max-copy="true"><svg viewBox="0 0 24 24"><use href="#detail-max"/></svg><span>MAX</span></a>
+            <a href="https://max.ru/u/f9LHodD0cOIy_2kf3cBKtOnGqxZ4q8W2tWSxfLrwCkr0UrtLN9u1TemxKtU" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#detail-max"/></svg><span>MAX</span></a>
             <a href="https://t.me/Eugene_grishaev" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#detail-telegram"/></svg><span>Telegram</span></a>
             <a href="https://wa.me/79267739777?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#detail-whatsapp"/></svg><span>WhatsApp</span></a>
           </div>
@@ -677,7 +635,7 @@
         <h3 id="contactModalTitle"></h3>
         <p id="contactModalDesc"></p>
         <div class="contact-modal-options">
-          <a class="contact-option" href="#" data-max-copy="true">
+          <a class="contact-option" href="https://max.ru/u/f9LHodD0cOIy_2kf3cBKtOnGqxZ4q8W2tWSxfLrwCkr0UrtLN9u1TemxKtU" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24"><use href="#detail-max"/></svg>
             <span>MAX</span>
           </a>
