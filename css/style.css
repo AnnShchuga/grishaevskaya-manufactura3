@@ -68,6 +68,7 @@
   --accent-warm-dark:   #8A6749;
   --ink:         #1D1D1F;
   --white:       #FFFFFF;
+  --success:     #3C673C;
 
   /* Apple-подобная нейтральная шкала поверх бренд-палитры */
   --paper:   #FFFFFF;
@@ -713,7 +714,7 @@ h2.section-title{
 .file-field input[type="file"]:focus ~ .file-field-btn{ border-color: var(--walnut); color: var(--ink); }
 .file-field.has-file .file-field-btn{ border-style: solid; border-color: var(--walnut); color: var(--ink); background: var(--white); }
 .form-consent{ font-size: .76rem; color: rgba(29,29,31,.5); margin-top: 1rem; font-style: normal; }
-.form-status{ font-size: .86rem; margin-top: .8rem; color: var(--walnut); font-weight: 650; }
+.form-status{ font-size: .86rem; margin-top: .8rem; color: var(--success); font-weight: 650; }
 
 /* ==========================================================================
    Partners band
