@@ -525,7 +525,23 @@ h2.section-title{
   overflow: hidden;
 }
 .case-detail-media{ position: relative; min-height: 260px; background: var(--sand); }
-.case-detail-media img{ position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.case-detail-media .gallery-main{ position: absolute; inset: 0; }
+.case-detail-media .gallery-main img{ position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.gallery-thumbs{
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  display: flex; gap: .4rem; padding: .6rem;
+  overflow-x: auto; scrollbar-width: none;
+  background: linear-gradient(0deg, rgba(20,13,10,.55), transparent);
+}
+.gallery-thumbs::-webkit-scrollbar{ display: none; }
+.gallery-thumb{
+  flex: 0 0 auto; width: 44px; height: 44px; padding: 0;
+  border: 2px solid rgba(255,255,255,.5); border-radius: var(--radius-sm);
+  overflow: hidden; cursor: pointer; opacity: .75; background: none;
+  transition: opacity .2s, border-color .2s;
+}
+.gallery-thumb img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+.gallery-thumb.is-active, .gallery-thumb:hover{ opacity: 1; border-color: var(--white); }
 .case-detail-body{
   padding: clamp(1.8rem, 3vw, 2.8rem);
   display: grid;
@@ -834,7 +850,7 @@ h2.section-title{
    Reusable media card — services menu, portfolio grid, materials
    ========================================================================== */
 .grid-cards{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.2rem, 2.4vw, 1.8rem); }
-.grid-card{ display: block; }
+.grid-card{ display: block; width: 100%; border: 0; background: none; padding: 0; margin: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; }
 .grid-card .case-swatch{ aspect-ratio: 4/3; }
 .grid-card .case-meta{ display:flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
 .grid-card .case-meta p{ white-space: nowrap; font-family: var(--font-display); font-weight: 600; color: var(--walnut); font-size: .9rem; }
@@ -1071,6 +1087,37 @@ h2.section-title{
 }
 .contact-modal-form-link svg{ width: 16px; height: 16px; }
 .contact-modal-form-link:hover{ color: var(--walnut-dark); }
+
+/* ==========================================================================
+   Project card modal (портфолио → карточка проекта)
+   ========================================================================== */
+.project-modal-overlay{
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem;
+  overflow-y: auto;
+  background: rgba(20,13,10,0); backdrop-filter: blur(0px);
+  transition: background .25s var(--ease), backdrop-filter .25s var(--ease);
+}
+.project-modal-overlay[hidden]{ display: none; }
+.project-modal-overlay.is-open{ background: rgba(20,13,10,.5); backdrop-filter: blur(4px); }
+.project-modal{
+  position: relative;
+  width: min(920px, 100%);
+  max-height: min(88vh, 900px);
+  overflow-y: auto;
+  margin: auto;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(10px) scale(.98); opacity: 0;
+  transition: transform .25s var(--ease), opacity .25s var(--ease);
+}
+.project-modal-overlay.is-open .project-modal{ transform: translateY(0) scale(1); opacity: 1; }
+.project-modal-close{
+  background: rgba(255,255,255,.85); backdrop-filter: blur(6px);
+  border-radius: var(--radius-sm);
+  z-index: 3;
+}
+.project-modal-cta{ grid-column: 1 / -1; margin-top: .5rem; }
 
 @media (prefers-reduced-motion: reduce){
   .callback-panel{ animation: none; }

@@ -1,6 +1,8 @@
 (() => {
   'use strict';
 
+  const WHATSAPP_NUMBER = '79267739777';
+
   /* ---------- hero: interactive kitchen (doors/drawers open on hover) ---------- */
   const heroImg = document.getElementById('heroKitchenImg');
   if (heroImg) {
@@ -300,8 +302,42 @@
 
   const PLACEHOLDER_MARK = 'assets/logo-mono.jpg';
 
+  // Открывает карточку проекта из галереи портфолио — реализуется ниже,
+  // после того как определён DOM модалки (нужна ссылка сюда до объявления).
+  let openProjectModal = () => {};
+
   function priceDisplay(item) {
     return item.price.endsWith('/шт.') ? item.price + ' *' : item.price;
+  }
+
+  // Каждый кейс сейчас несёт одно фото (item.photo). Чтобы позже можно было
+  // добавить доп. фото по проекту без правок кода, читаем опциональный
+  // item.photos — при его отсутствии галерея просто показывает одно фото.
+  function projectPhotos(item) {
+    return (item.photos && item.photos.length) ? item.photos : [item.photo];
+  }
+
+  function galleryMediaHTML(item) {
+    const photos = projectPhotos(item);
+    const alt = item.title.replace(/&nbsp;/g, ' ');
+    const thumbs = photos.length > 1
+      ? `<div class="gallery-thumbs">${photos.map((p, i) => `
+          <button type="button" class="gallery-thumb${i === 0 ? ' is-active' : ''}" data-src="${p}" aria-label="Фото ${i + 1} из ${photos.length}">
+            <img src="${p}" alt="" loading="lazy">
+          </button>`).join('')}</div>`
+      : '';
+    return `<div class="gallery-main"><img src="${photos[0]}" alt="${alt}" loading="lazy"></div>${thumbs}`;
+  }
+
+  function wireGallery(mediaEl) {
+    const mainImg = mediaEl.querySelector('.gallery-main img');
+    mediaEl.querySelectorAll('.gallery-thumb').forEach(btn => {
+      btn.addEventListener('click', () => {
+        mediaEl.querySelectorAll('.gallery-thumb').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        mainImg.src = btn.dataset.src;
+      });
+    });
   }
 
   function caseCardHTML(item, i) {
@@ -324,12 +360,11 @@
   const detail = document.getElementById('caseDetail');
   if (track && detail) {
     function renderDetail(item) {
-      const photo = item.photo || 'assets/photos/case-kh.jpg';
       const priceNote = item.price === 'по договорённости'
         ? 'стоимость обсуждается индивидуально'
         : 'фиксированная цена после замера';
       detail.innerHTML = `
-        <div class="case-detail-media"><img src="${photo}" alt="${item.title}" loading="lazy"></div>
+        <div class="case-detail-media">${galleryMediaHTML(item)}</div>
         <div class="case-detail-body">
           <div class="lead">
             <h3>${item.title}</h3>
@@ -342,6 +377,7 @@
           <p class="case-quote">${item.note}${item.price.endsWith('/шт.') ? '<br><span class="case-footnote-inline">* Ориентировочная стоимость за шкаф шириной 1 метр, без наполнения внутри.</span>' : ''}</p>
         </div>
       `;
+      wireGallery(detail.querySelector('.case-detail-media'));
     }
     CASES.slice(0, 6).forEach((item, i) => {
       const card = document.createElement('button');
@@ -366,6 +402,7 @@
     const PAGE_SIZE = 6;
     let activeCat = 'all';
     let shown = PAGE_SIZE;
+    let currentItems = [];
 
     function currentSet() {
       const base = activeCat === 'all' ? CASES : CASES.filter(c => c.cat === activeCat);
@@ -374,9 +411,10 @@
 
     function render() {
       const set = currentSet();
-      grid.innerHTML = set.slice(0, shown).map((item, i) => {
+      currentItems = set.slice(0, shown);
+      grid.innerHTML = currentItems.map((item, i) => {
         const cardItem = item.titlePortfolio ? { ...item, title: item.titlePortfolio } : item;
-        return `<a class="grid-card" href="#cta">${caseCardHTML(cardItem, i)}</a>`;
+        return `<button type="button" class="grid-card" data-idx="${i}">${caseCardHTML(cardItem, i)}</button>`;
       }).join('');
       const btn = document.getElementById('loadMoreBtn');
       if (btn) btn.hidden = shown >= set.length;
@@ -393,6 +431,13 @@
     });
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     if (loadMoreBtn) loadMoreBtn.addEventListener('click', () => { shown += PAGE_SIZE; render(); });
+
+    grid.addEventListener('click', (e) => {
+      const card = e.target.closest('.grid-card');
+      if (!card) return;
+      const item = currentItems[Number(card.dataset.idx)];
+      if (item) openProjectModal(item);
+    });
 
     render();
   }
@@ -418,7 +463,6 @@
   /* ---------- lead form -> WhatsApp deep link (or Web Share, if a file is attached) ---------- */
   const form = document.getElementById('leadForm');
   const status = document.getElementById('formStatus');
-  const WHATSAPP_NUMBER = '79267739777';
 
   const fileInput = document.getElementById('f-file');
   const fileFieldLabel = document.getElementById('fileFieldLabel');
@@ -701,6 +745,66 @@
         window.location.href = 'index.html#cta';
       }
     });
+  })();
+
+  /* ---------- project card modal (галерея портфолио → карточка проекта) ---------- */
+  (() => {
+    const overlay = document.createElement('div');
+    overlay.className = 'project-modal-overlay';
+    overlay.hidden = true;
+    overlay.innerHTML = `
+      <div class="project-modal case-detail" role="dialog" aria-modal="true" aria-label="Карточка проекта">
+        <button type="button" class="callback-close project-modal-close" id="projectModalClose" aria-label="Закрыть">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+        </button>
+        <div class="case-detail-media" id="projectModalMedia"></div>
+        <div class="case-detail-body" id="projectModalBody"></div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    const closeBtn = document.getElementById('projectModalClose');
+    const mediaEl = document.getElementById('projectModalMedia');
+    const bodyEl = document.getElementById('projectModalBody');
+
+    const closeModal = () => {
+      overlay.classList.remove('is-open');
+      setTimeout(() => { overlay.hidden = true; }, 200);
+    };
+
+    openProjectModal = (item) => {
+      const priceNote = item.price === 'по договорённости'
+        ? 'стоимость обсуждается индивидуально'
+        : 'фиксированная цена после замера';
+      const cleanTitle = item.title.replace(/&nbsp;/g, ' ');
+      const waText = `Здравствуйте! Интересует проект «${cleanTitle}». Хочу обсудить детали.`;
+      const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`;
+
+      mediaEl.innerHTML = galleryMediaHTML(item);
+      bodyEl.innerHTML = `
+        <div class="lead">
+          <h3>${item.title}</h3>
+          <div class="stars">${priceNote}</div>
+        </div>
+        <dl class="case-stat"><dt>Формат</dt><dd>${item.area}</dd></dl>
+        <dl class="case-stat"><dt>Материал</dt><dd>${item.material}</dd></dl>
+        <dl class="case-stat"><dt>Срок</dt><dd>${item.days}</dd></dl>
+        <dl class="case-stat"><dt>Стоимость</dt><dd>${priceDisplay(item)}</dd></dl>
+        <p class="case-quote">${item.note}${item.price.endsWith('/шт.') ? '<br><span class="case-footnote-inline">* Ориентировочная стоимость за шкаф шириной 1 метр, без наполнения внутри.</span>' : ''}</p>
+        <a class="btn btn-primary btn-block project-modal-cta" href="${waUrl}" target="_blank" rel="noopener">
+          Обсудить похожий проект
+          <svg viewBox="0 0 24 24"><use href="#icon-arrow"/></svg>
+        </a>
+      `;
+      wireGallery(mediaEl);
+
+      overlay.hidden = false;
+      requestAnimationFrame(() => overlay.classList.add('is-open'));
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !overlay.hidden) closeModal(); });
   })();
 
   /* ---------- cookie consent banner ---------- */
